@@ -26,4 +26,8 @@ Steps to run the application:
 
 ---
 
+Get more information about this project on [Medium](https://medium.com/@KGPrajwal/covid19-voice-assistant-63c37b1f02f9).
+
+---
+
 ### Thank You!
