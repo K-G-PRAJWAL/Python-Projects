@@ -17,7 +17,7 @@ if len(sys.argv) > 1:
         sys.exit(0)
 
 # Initalise the pg library
-pg.init()
+# pg.init()
 # Set the dimensions of the window and display it
 display = pg.display.set_mode(dimensions)
 # Fill the window with purple hue
@@ -55,7 +55,6 @@ def main(args):
     if len(args) < 2:
         print("Please select a sorting algorithm.") 
     else:
-        print(sys.argv)
         try:
             algorithm = algorithms[args[1]] # Pass the algorithm selected
             try:
