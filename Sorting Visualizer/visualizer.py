@@ -5,7 +5,7 @@ import sys
 import pygame as pg
 
  # Set the window length and breadth  (Make sure that the breadth is equal to size of array. [512])
-dimensions = [1024, 512]
+dimensions = (1024, 512)
 # List all the algorithms available in the project in dictionary and call the necessary functions from algorithms.py
 algorithms = {"SelectionSort": algorithms.SelectionSort(), "BubbleSort": algorithms.BubbleSort(), "InsertionSort": algorithms.InsertionSort(), "MergeSort": algorithms.MergeSort(), "QuickSort": algorithms.QuickSort()}
 
@@ -19,7 +19,7 @@ if len(sys.argv) > 1:
 # Initalise the pg library
 pg.init()
 # Set the dimensions of the window and display it
-display = pg.display.set_mode((dimensions[0], dimensions[1]))
+display = pg.display.set_mode(dimensions)
 # Fill the window with purple hue
 display.fill(pg.Color("#a48be0"))
 
@@ -51,12 +51,13 @@ def keep_open(algorithm, display, time): # Keep the window open until sort compl
         check_events()
         pg.display.update()
 
-def main():
-    if len(sys.argv) < 2:
+def main(args):
+    if len(args) < 2:
         print("Please select a sorting algorithm.") 
     else:
+        print(sys.argv)
         try:
-            algorithm = algorithms[sys.argv[1]] # Pass the algorithm selected
+            algorithm = algorithms[args[1]] # Pass the algorithm selected
             try:
                 time_elapsed = algorithm.run()[1]
                 keep_open(algorithm, display, time_elapsed)
@@ -67,4 +68,5 @@ def main():
             print("Error.")
 
 if __name__ == "__main__":
-    main()
+    sys.argv.append("QuickSort")
+    main(sys.argv)
