@@ -1,7 +1,8 @@
 import time
 import random
+from abc import ABCMeta, abstractmethod
 
-class Algorithm:
+class Algorithm(metaclass=ABCMeta):
     def __init__(self, name):
         self.array = random.sample(range(512), 512) # Random array of size 512
         self.name = name # Get name of the variable
@@ -15,6 +16,10 @@ class Algorithm:
         self.algorithm()
         time_elapsed = time.time() - self.start_time
         return self.array, time_elapsed
+    
+    @abstractmethod
+    def algorithm(self):
+        raise TypeError(f"Algorithm.algorithm() has not been overwritten.")
 
 
 class SelectionSort(Algorithm):
