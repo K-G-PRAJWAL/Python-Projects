@@ -4,17 +4,12 @@ import os
 import sys
 import pygame as pg
 
- # Set the window length and breadth  (Make sure that the breadth is equal to size of array. [512])
+ # Set the window length and breadth  
+ # (Make sure that the breadth is equal to size of array. [512])
 dimensions = (1024, 512)
-# List all the algorithms available in the project in dictionary and call the necessary functions from algorithms.py
+# List all the algorithms available in the project in dictionary and call the
+#  necessary functions from algorithms.py
 algorithms = {"SelectionSort": algorithms.SelectionSort(), "BubbleSort": algorithms.BubbleSort(), "InsertionSort": algorithms.InsertionSort(), "MergeSort": algorithms.MergeSort(), "QuickSort": algorithms.QuickSort()}
-
-# Check list of all the available sorting techniques using 'list'
-if len(sys.argv) > 1:
-    if sys.argv[1] == "list":
-        for key in algorithms.keys(): print(key, end=" ") # Display the available algorithms
-        print("")
-        sys.exit(0)
 
 # Set the dimensions of the window and display it
 display = pg.display.set_mode(dimensions)
@@ -26,6 +21,7 @@ def check_events(): # Check if the pg window was quit
         if event.type == pg.QUIT:
             pg.quit()
             sys.exit()
+
 
 def update(algorithm, swap1=None, swap2=None, display=display): # The function responsible for drawing the sorted array on each iteration
     display.fill(pg.Color("#a48be0"))
@@ -49,8 +45,14 @@ def keep_open(algorithm, display, time): # Keep the window open until sort compl
         check_events()
 
 def main(args):
+    # Check list of all the available sorting techniques using 'list'
+    
     if len(args) < 2:
         print("Please select a sorting algorithm.") 
+    elif args[1] == "list":
+            # Display the available algorithms
+            print("Available sorting algorithms:\n\t" + "\n\t".join(algorithms.keys()))
+            sys.exit(0)
     else:
         try:
             algorithm = algorithms[args[1]] # Pass the algorithm selected
@@ -64,5 +66,5 @@ def main(args):
             print("Error.")
 
 if __name__ == "__main__":
-    sys.argv.append("SelectionSort")
+    sys.argv.append("list")
     main(sys.argv)
