@@ -16,8 +16,6 @@ if len(sys.argv) > 1:
         print("")
         sys.exit(0)
 
-# Initalise the pg library
-# pg.init()
 # Set the dimensions of the window and display it
 display = pg.display.set_mode(dimensions)
 # Fill the window with purple hue
@@ -49,7 +47,6 @@ def keep_open(algorithm, display, time): # Keep the window open until sort compl
     pg.display.set_caption("Sorting Visualizer     Algorithm: {}     Time: {:.3f}      Status: Done!".format(algorithm.name, time))
     while True:
         check_events()
-        pg.display.update()
 
 def main(args):
     if len(args) < 2:
@@ -67,5 +64,5 @@ def main(args):
             print("Error.")
 
 if __name__ == "__main__":
-    sys.argv.append("QuickSort")
+    sys.argv.append("SelectionSort")
     main(sys.argv)
