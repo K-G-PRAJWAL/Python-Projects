@@ -45,26 +45,22 @@ def keep_open(algorithm, display, time): # Keep the window open until sort compl
         check_events()
 
 def main(args):
-    # Check list of all the available sorting techniques using 'list'
-    
+    # Case: user failed to choose an algorithm    
     if len(args) < 2:
-        print("Please select a sorting algorithm.") 
+        print("Please select a sorting algorithm.")
+    # Case: user requests list of algorithms
     elif args[1] == "list":
-            # Display the available algorithms
-            print("Available sorting algorithms:\n\t" + "\n\t".join(algorithms.keys()))
+            print("Available algorithms:\n\t" + "\n\t".join(algorithms.keys()))
             sys.exit(0)
+    # Case: user selected an algorithm
     else:
         try:
-            algorithm = algorithms[args[1]] # Pass the algorithm selected
-            try:
-                time_elapsed = algorithm.run()[1]
-                keep_open(algorithm, display, time_elapsed)
-                pass
-            except:
-                pass
+            algorithm = algorithms[args[1]] # Collect algorithm
+            _, time_elapsed = algorithm.run() # Run algorithm and time it
+            keep_open(algorithm, display, time_elapsed) # Display results
         except:
             print("Error.")
 
 if __name__ == "__main__":
-    sys.argv.append("list")
+    sys.argv.append("SelectionSort")
     main(sys.argv)
