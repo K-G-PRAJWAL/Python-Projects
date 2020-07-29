@@ -23,7 +23,8 @@ def check_events(): # Check if the pg window was quit
             sys.exit()
 
 
-def update(algorithm, swap1=None, swap2=None, display=display): # The function responsible for drawing the sorted array on each iteration
+def update(algorithm, swap1=None, swap2=None, display=display):
+    # The function responsible for drawing the sorted array on each iteration
     display.fill(pg.Color("#a48be0"))
     pg.display.set_caption("Sorting Visualizer     Algorithm: {}     Time: {:.3f}      Status: Sorting...".format(algorithm.name, time.time() - algorithm.start_time)) # Display on title bar
     k = int(dimensions[0]/len(algorithm.array))
@@ -62,5 +63,5 @@ def main(args):
             print("Error.")
 
 if __name__ == "__main__":
-    sys.argv.append("SelectionSort")
+    sys.argv.append("BubbleSort")
     main(sys.argv)
