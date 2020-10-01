@@ -1,6 +1,6 @@
 # Machine Learning Algorithms
 
-Some of the most important machine learning algorithms are implmented here:
+Some of the most important machine learning algorithms are implemented here:
 
 - K-Nearest Neighbors
 - Linear SVM
