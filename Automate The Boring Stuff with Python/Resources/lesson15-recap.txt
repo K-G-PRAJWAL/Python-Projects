@@ -1,0 +1,8 @@
+Methods are functions that are "called on" values.
+The index() list method returns the index of an item in the list.
+The append() list method adds a value to the end of a list.
+The insert() list method adds a value anywhere inside a list.
+The remove() list method removes an item, specified by the value, from a list.
+The sort() list method sorts the items in a list.
+The sort() method's reverse=True keyword argument can make the sort() method sort in reverse order.
+These list methods operate on the list "in place", rather than returning a new list value.

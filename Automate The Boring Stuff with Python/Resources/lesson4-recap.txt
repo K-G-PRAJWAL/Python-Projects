@@ -1,0 +1,4 @@
+The Boolean data type has only two values: True and False (both beginning with capital letters).
+Comparison operators compare two values and evaluate to a Boolean value: ==, !=, <, >, <=, >=
+== is a comparison operator, while = is the assignment operator for variables.
+Boolean operators (and, or, not) also evaluate to Boolean values.

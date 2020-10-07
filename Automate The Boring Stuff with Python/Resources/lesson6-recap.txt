@@ -1,0 +1,4 @@
+When the execution reaches the end of a "while" statement's block, it jumps back to the start to re-check the condition.
+You can press ctrl-c to interrupt an infinite loop. This hotkey stops Python programs.
+A "break" statement causes the execution to immediately leave the loop, without re-check the condition.
+A "continue" statement causes the execution to immediate jump back to the start of the loop and re-check the condition.

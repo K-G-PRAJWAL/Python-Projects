@@ -1,0 +1,3 @@
+A "for" loop will loop a specific number of times.
+The range() function can be called with one, two, or three arguments.
+The break and continue statements can be used in for loops just like they're used in while loops.

@@ -1,0 +1,8 @@
+Functions are like a mini-program inside your program.
+The main point of functions is to get rid of duplicate code.
+The def statement defines a function.
+The input to functions are called arguments. The output is called the return value.
+The parameters are the variables in between the function's parentheses in the def statement.
+The return value is specified using the return statement.
+Every function has a return value. If your function doesn't have a return statement, the default return value is None. (Like True and False, None is written with a capital first letter.)
+Keyword arguments to functions are usually for optional arguments. The print() function has keyword arguments "end" and "sep".

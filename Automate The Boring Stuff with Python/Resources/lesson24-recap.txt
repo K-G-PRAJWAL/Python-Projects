@@ -1,0 +1,5 @@
+Groups are created in regex strings with parentheses.
+The first set of parentheses is group 1, the second is 2, and so on.
+Calling group() or group(0) returns the full matching string, group(1) returns group 1's matching string, and so on.
+Use \( and \) to match literal parentheses in the regex string.
+The | pipe can match one of many possible groups.
