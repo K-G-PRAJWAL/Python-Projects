@@ -17,6 +17,6 @@ The main purpose of this project is to send SMS efficiently using Python promptl
 10. I have now created GUI interface with labels, extnumber and textmessages with the required specifications. I have also declared the send and quit button for operations and directed it to btn_clk. 
 11. I have also placed a SMS logo to appear on GUI. Make sure to include the file in this folder.
 
-**Demo of my Project**:
+**Demo**:
 
 ![SMS_Sender](https://github.com/prathimacode-hub/Pythonista_ForAll/blob/main/SMS_Sender/SMS_Sender.png)
