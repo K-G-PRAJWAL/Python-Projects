@@ -14,7 +14,7 @@ Pillow==8.3.2
 PyAutoGUI==0.9.52
 PyGetWindow==0.0.9
 PyMsgBox==1.0.8
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 pyperclip==1.8.0
 PyRect==0.1.4
 PyScreeze==0.1.26
