@@ -7,7 +7,7 @@ et-xmlfile==1.0.1
 idna==2.10
 IMAPClient==2.1.0
 jdcal==1.4.1
-lxml==4.6.5
+lxml==4.9.1
 MouseInfo==0.1.3
 openpyxl==3.0.5
 Pillow==8.3.2
