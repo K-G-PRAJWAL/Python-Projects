@@ -2,6 +2,7 @@
 
 import turtle  # Basic Graphics module
 import winsound  # For Sound
+import pandas
 
 wn = turtle.Screen()
 wn.title("Pong by K G Prajwal")  # Window title
