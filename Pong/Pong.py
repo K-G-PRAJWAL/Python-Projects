@@ -1,135 +1,103 @@
 # Simple Pong game
 
-import turtle  # Basic Graphics module
-import winsound  # For Sound
+import pygame
+import random
 
-wn = turtle.Screen()
-wn.title("Pong by K G Prajwal")  # Window title
-wn.bgcolor("black")  # Window background
-wn.setup(width=800, height=600)  # Window size
-wn.tracer(0)  # Stops window from updating - Speedup
+# Initialize Pygame
+pygame.init()
 
-# Scoreboard
-score_a = 0
-score_b = 0
+# Constants
+SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
+PADDLE_WIDTH, PADDLE_HEIGHT = 15, 100
+BALL_SIZE = 15
+BALL_SPEED_X, BALL_SPEED_Y = 7, 7
+FPS = 60
 
-# Paddle A
-paddle_a = turtle.Turtle()
-paddle_a.speed(0)  # Speed of animation
-paddle_a.shape("square")  # Set shape as square (default 20x20)
-paddle_a.color("white")  # Set the color
-# Make the square into rectangle
-paddle_a.shapesize(stretch_wid=5, stretch_len=1)
-paddle_a.penup()  # Don't draw continously
-paddle_a.goto(-350, 0)  # Paddle a starts at 350, left of screen
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
 
-# Paddle B
-paddle_b = turtle.Turtle()
-paddle_b.speed(0)
-paddle_b.shape("square")
-paddle_b.color("white")
-paddle_b.shapesize(stretch_wid=5, stretch_len=1)
-paddle_b.penup()
-paddle_b.goto(350, 0)  # Paddle a starts at 350, right of screen
+# Set up the screen
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('Advanced Pong')
 
+# Game objects
+paddle1 = pygame.Rect(10, (SCREEN_HEIGHT - PADDLE_HEIGHT) // 2, PADDLE_WIDTH, PADDLE_HEIGHT)
+paddle2 = pygame.Rect(SCREEN_WIDTH - PADDLE_WIDTH - 10, (SCREEN_HEIGHT - PADDLE_HEIGHT) // 2, PADDLE_WIDTH, PADDLE_HEIGHT)
+ball = pygame.Rect((SCREEN_WIDTH - BALL_SIZE) // 2, (SCREEN_HEIGHT - BALL_SIZE) // 2, BALL_SIZE, BALL_SIZE)
 
-# Ball
-ball = turtle.Turtle()
-ball.speed(0)
-ball.shape("square")
-ball.color("white")
-ball.penup()
-ball.goto(0, 0)
-ball.dx = 0.5
-ball.dy = 0.5
+# Initial ball speed and direction
+ball_speed_x = BALL_SPEED_X * random.choice((1, -1))
+ball_speed_y = BALL_SPEED_Y * random.choice((1, -1))
+paddle_speed = 7
 
-# Pen - Scoreboard
-pen = turtle.Turtle()
-pen.speed(0)
-pen.color('white')
-pen.penup()
-pen.hideturtle()
-pen.goto(0, 260)
-pen.write("Player A: 0  Player B: 0", align="center",
-          font=("Courier", 24, "normal"))
+# Scoring
+score1 = 0
+score2 = 0
+font = pygame.font.Font(None, 74)
 
+# Clock for controlling FPS
+clock = pygame.time.Clock()
+running = True
 
-# Functionality
-def paddle_a_up():
-    y = paddle_a.ycor()  # .ycor() return y coordinate
-    y += 20  # Move up
-    paddle_a.sety(y)
+# Game loop
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
 
+    # Paddle movement
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_w] and paddle1.top > 0:
+        paddle1.y -= paddle_speed
+    if keys[pygame.K_s] and paddle1.bottom < SCREEN_HEIGHT:
+        paddle1.y += paddle_speed
 
-def paddle_a_down():
-    y = paddle_a.ycor()
-    y -= 20  # Move down
-    paddle_a.sety(y)
+    # Simple AI for paddle2
+    if paddle2.centery < ball.centery and paddle2.bottom < SCREEN_HEIGHT:
+        paddle2.y += paddle_speed
+    if paddle2.centery > ball.centery and paddle2.top > 0:
+        paddle2.y -= paddle_speed
 
+    # Ball movement
+    ball.x += ball_speed_x
+    ball.y += ball_speed_y
 
-def paddle_b_up():
-    y = paddle_b.ycor()
-    y += 20
-    paddle_b.sety(y)
+    # Collision with top and bottom
+    if ball.top <= 0 or ball.bottom >= SCREEN_HEIGHT:
+        ball_speed_y *= -1
 
+    # Collision with paddles
+    if ball.colliderect(paddle1) or ball.colliderect(paddle2):
+        ball_speed_x *= -1
 
-def paddle_b_down():
-    y = paddle_b.ycor()
-    y -= 20
-    paddle_b.sety(y)
+    # Scoring
+    if ball.left <= 0:
+        score2 += 1
+        ball = pygame.Rect((SCREEN_WIDTH - BALL_SIZE) // 2, (SCREEN_HEIGHT - BALL_SIZE) // 2, BALL_SIZE, BALL_SIZE)
+        ball_speed_x = BALL_SPEED_X * random.choice((1, -1))
+        ball_speed_y = BALL_SPEED_Y * random.choice((1, -1))
+    if ball.right >= SCREEN_WIDTH:
+        score1 += 1
+        ball = pygame.Rect((SCREEN_WIDTH - BALL_SIZE) // 2, (SCREEN_HEIGHT - BALL_SIZE) // 2, BALL_SIZE, BALL_SIZE)
+        ball_speed_x = BALL_SPEED_X * random.choice((1, -1))
+        ball_speed_y = BALL_SPEED_Y * random.choice((1, -1))
 
+    # Drawing
+    screen.fill(BLACK)
+    pygame.draw.rect(screen, WHITE, paddle1)
+    pygame.draw.rect(screen, WHITE, paddle2)
+    pygame.draw.ellipse(screen, WHITE, ball)
+    pygame.draw.aaline(screen, WHITE, (SCREEN_WIDTH // 2, 0), (SCREEN_WIDTH // 2, SCREEN_HEIGHT))
 
-# Keyboard binding
-wn.listen()
-wn.onkeypress(paddle_a_up, "w")
-wn.onkeypress(paddle_a_down, "s")
-wn.onkeypress(paddle_b_up, "Up")
-wn.onkeypress(paddle_b_down, "Down")
+    # Display scores
+    score_text1 = font.render(str(score1), True, WHITE)
+    screen.blit(score_text1, (320, 10))
+    score_text2 = font.render(str(score2), True, WHITE)
+    screen.blit(score_text2, (420, 10))
 
+    # Update the display
+    pygame.display.flip()
+    clock.tick(FPS)
 
-# Main game loop
-while True:
-    wn.update()  # Update screen everytime loop runs
-
-    # Move the ball
-    ball.setx(ball.xcor() + ball.dx)
-    ball.sety(ball.ycor() + ball.dy)
-
-    # Top & Bottom Border
-    if ball.ycor() > 290:
-        ball.sety(290)
-        ball.dy *= -1  # Reverse the direction of ball
-        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
-
-    if ball.ycor() < -290:
-        ball.sety(-290)
-        ball.dy *= -1
-        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
-
-    # Left & Right Border
-    if ball.xcor() > 390:
-        score_a += 1
-        pen.clear()
-        pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center",
-                  font=("Courier", 24, "normal"))  # Update score
-        ball.goto(0, 0)
-        ball.dx *= -1
-
-    if ball.xcor() < -390:
-        score_b += 1
-        pen.clear()
-        pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center",
-                  font=("Courier", 24, "normal"))
-        ball.goto(0, 0)
-        ball.dx *= -1
-
-    # Bounce of the paddle
-    if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() - 50):
-        ball.setx(340)
-        ball.dx *= -1
-        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
-
-    if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_a.ycor() + 40 and ball.ycor() > paddle_a.ycor() - 50):
-        ball.setx(-340)
-        ball.dx *= -1
-        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+pygame.quit()
